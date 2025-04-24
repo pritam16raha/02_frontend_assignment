@@ -5,7 +5,7 @@ export type Widget = {
   id: string;
   name: string;
   description?: string;
-  data?: { name: string; value: number; color: string }[]; 
+  data?: { name: string; value: number; color: string }[];
 };
 
 type WidgetStore = {
@@ -13,6 +13,8 @@ type WidgetStore = {
   addWidget: (category: string, widget: Widget) => void;
   removeWidget: (category: string, widgetId: string) => void;
   setWidgets: (category: string, widgets: Widget[]) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
 };
 
 export const useWidgetStore = create<WidgetStore>()(
@@ -44,9 +46,12 @@ export const useWidgetStore = create<WidgetStore>()(
             [category]: widgets,
           },
         })),
+
+      searchQuery: "",
+      setSearchQuery: (query: string) => set({ searchQuery: query }),
     }),
     {
-      name: "dashboard-widgets", // localStorage key
+      name: "dashboard-widgets", // key in localStorage
     }
   )
 );

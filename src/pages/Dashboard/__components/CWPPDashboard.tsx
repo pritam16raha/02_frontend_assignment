@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 import {
   BarChart,
   XAxis,
@@ -18,19 +19,27 @@ type Props = {
 
 const CWPPDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
+  const searchQuery = useWidgetStore((state) => state.searchQuery);
+
+  const filteredWidgets = useMemo(() => {
+    if (!searchQuery.trim()) return widgets;
+    return widgets.filter((widget) =>
+      widget.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [widgets, searchQuery]);
 
   return (
     <div className="space-y-2 px-4">
       <h2 className="text-lg font-semibold">CWPP Dashboard</h2>
 
-      {widgets.length === 0 && (
+      {filteredWidgets.length === 0 && (
         <div className="text-center text-gray-500 text-sm">
           No widgets found
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {widgets.map((widget) => (
+        {filteredWidgets.map((widget) => (
           <div
             key={widget.id}
             className="relative bg-white rounded-xl shadow-sm p-4"

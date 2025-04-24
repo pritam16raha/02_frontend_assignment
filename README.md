@@ -1,54 +1,81 @@
-# React + TypeScript + Vite
+# 🚀 Frontend Dashboard Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **Dynamic Widget-based Dashboard** built as part of the Frontend Trainee Assignment. It allows users to dynamically add, view, search, and remove widgets from multiple dashboard categories.
 
-Currently, two official plugins are available:
+## 🛠 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React.js** (with Vite)
+- **Zustand** for state management
+- **Tailwind CSS** for UI styling
+- **Recharts** for visualizations
+- **TypeScript** for type safety
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📂 Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- ✅ Add and remove widgets dynamically under 4 categories:
+  - CSPM
+  - CWPP
+  - Image (Registry Scan)
+  - Ticket
+- ✅ Each widget shows randomized chart data (Pie/Bar/Segmented bar)
+- ✅ Add widget drawer opens from the right side on button click
+- ✅ Cross icon to remove individual widgets
+- ✅ Unified **Search bar** filters widgets by name across all categories
+- ✅ All data is **persisted to localStorage** using Zustand `persist` middleware
+- ✅ Responsive grid layout for multiple screen sizes
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 How to Run Locally
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. **Clone the repository / unzip the folder**
+
+```bash
+git clone https://github.com/your-username/frontend-dashboard-assignment.git
+cd frontend-dashboard-assignment
+Install dependencies
+
+bash
+Copy
+Edit
+npm install
+Start development server
+
+bash
+Copy
+Edit
+npm run dev
+Visit in browser
+
+arduino
+Copy
+Edit
+http://localhost:5173
+
+http://localhost:5173/dashboard
+
+🧼 Folder Structure
+bash
+Copy
+Edit
+src/
+├── components/            # Common components like top bar
+├── pages/
+│   └── dashboard/         # All dashboards and AddWidgetDrawer
+├── store/                 # Zustand store for widgets
+├── types/                 # Shared TypeScript types
+└── App.tsx
+📸 Screenshots
+
+Dashboard View	Add Widget Drawer	Search Feature
+
+📌 Notes
+All widget data is stored in localStorage under the key dashboard-widgets
+
+Fully functional without any backend API
+
+Ready for integration with real-time or remote data if needed
+
+🙌 Made by Pritam Raha

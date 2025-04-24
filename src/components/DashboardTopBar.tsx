@@ -1,6 +1,9 @@
 import { FaSearch, FaBell } from "react-icons/fa";
+import { useWidgetStore } from "../store/useWidgetStore";
 
 const DashboardTopBar = () => {
+  const searchQuery = useWidgetStore((state) => state.searchQuery);
+  const setSearchQuery = useWidgetStore((state) => state.setSearchQuery);
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-sm border-b">
       {/* Breadcrumb */}
@@ -16,6 +19,8 @@ const DashboardTopBar = () => {
           <input
             type="text"
             placeholder="Search anything..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 pr-4 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />

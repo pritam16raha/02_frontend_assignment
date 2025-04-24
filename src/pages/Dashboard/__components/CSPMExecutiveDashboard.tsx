@@ -2,6 +2,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { useWidgetStore, Widget } from "../../../store/useWidgetStore";
 import { FaTimes } from "react-icons/fa";
+import { useMemo } from "react";
 
 type Props = {
   widgets: Widget[];
@@ -10,19 +11,26 @@ type Props = {
 
 const CSPMExecutiveDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
+  const searchQuery = useWidgetStore((state) => state.searchQuery);
 
+  const filteredWidgets = useMemo(() => {
+    if (!searchQuery.trim()) return widgets;
+    return widgets.filter((widget) =>
+      widget.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [widgets, searchQuery]);
   return (
     <div className="space-y-2 px-4">
       <h2 className="text-lg font-semibold">CSPM Executive Dashboard</h2>
 
-      {widgets.length === 0 && (
+      {filteredWidgets.length === 0 && (
         <div className="text-center text-gray-500 text-sm">
           No widgets found
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {widgets.map((widget) => {
+        {filteredWidgets.map((widget) => {
           const total = widget.data?.reduce((sum, item) => sum + item.value, 0);
 
           return (
