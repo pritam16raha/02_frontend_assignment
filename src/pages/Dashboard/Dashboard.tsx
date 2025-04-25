@@ -103,22 +103,33 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        <CSPMExecutiveDashboard
-          widgets={widgets["CSPM"] || []}
-          openDrawer={() => openDrawerFromSection("CSPM")}
-        />
-        <CWPPDashboard
-          widgets={widgets["CWPP"] || []}
-          openDrawer={() => openDrawerFromSection("CWPP")}
-        />
-        <RegistryScanDashboard
-          widgets={widgets["Image"] || []}
-          openDrawer={() => openDrawerFromSection("Image")}
-        />
-        <TicketDashboard
-          widgets={widgets["Ticket"] || []}
-          openDrawer={() => openDrawerFromSection("Ticket")}
-        />
+        <div className="pb-10">
+          {" "}
+          <div className="py-4">
+            <CSPMExecutiveDashboard
+              widgets={widgets["CSPM"] || []}
+              openDrawer={() => openDrawerFromSection("CSPM")}
+            />
+          </div>
+          <div className="py-4">
+            <CWPPDashboard
+              widgets={widgets["CWPP"] || []}
+              openDrawer={() => openDrawerFromSection("CWPP")}
+            />
+          </div>
+          <div className="py-4">
+            <RegistryScanDashboard
+              widgets={widgets["Image"] || []}
+              openDrawer={() => openDrawerFromSection("Image")}
+            />
+          </div>
+          <div className="py-4">
+            <TicketDashboard
+              widgets={widgets["Ticket"] || []}
+              openDrawer={() => openDrawerFromSection("Ticket")}
+            />
+          </div>
+        </div>
       </div>
 
       <AddWidgetDrawer
