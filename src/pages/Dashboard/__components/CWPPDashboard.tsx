@@ -21,12 +21,28 @@ const CWPPDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
   const searchQuery = useWidgetStore((state) => state.searchQuery);
 
+  const demoWidgets: Widget[] = [
+    {
+      id: "cwpp-demo-1",
+      name: "VM Alert Summary",
+      description: "Demo alert counts by severity",
+      data: [
+        { name: "Critical", value: 40, color: "#DC2626" },
+        { name: "High", value: 30, color: "#F97316" },
+        { name: "Medium", value: 20, color: "#EAB308" },
+        { name: "Low", value: 10, color: "#10B981" },
+      ],
+    },
+  ];
+
+  const activeWidgets = widgets.length > 0 ? widgets : demoWidgets;
+
   const filteredWidgets = useMemo(() => {
-    if (!searchQuery.trim()) return widgets;
-    return widgets.filter((widget) =>
+    if (!searchQuery.trim()) return activeWidgets;
+    return activeWidgets.filter((widget) =>
       widget.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [widgets, searchQuery]);
+  }, [activeWidgets, searchQuery]);
 
   return (
     <div className="space-y-2 px-4">

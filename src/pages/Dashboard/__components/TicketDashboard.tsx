@@ -11,13 +11,27 @@ type Props = {
 const TicketDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
   const searchQuery = useWidgetStore((state) => state.searchQuery);
+  const demoWidgets: Widget[] = [
+    {
+      id: "ticket-demo-1",
+      name: "Ticket Overview",
+      description: "Demo ticket summary by status",
+      data: [
+        { name: "Open", value: 20, color: "#3B82F6" },
+        { name: "In Progress", value: 10, color: "#F59E0B" },
+        { name: "Closed", value: 15, color: "#10B981" },
+      ],
+    },
+  ];
+
+  const activeWidgets = widgets.length > 0 ? widgets : demoWidgets;
 
   const filteredWidgets = useMemo(() => {
-    if (!searchQuery.trim()) return widgets;
-    return widgets.filter((widget) =>
+    if (!searchQuery.trim()) return activeWidgets;
+    return activeWidgets.filter((widget) =>
       widget.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [widgets, searchQuery]);
+  }, [activeWidgets, searchQuery]);
 
   return (
     <div className="space-y-2 px-4">

@@ -21,8 +21,8 @@ const AddWidgetDrawer = ({
 
   const [newWidgetName, setNewWidgetName] = useState("");
   const [newWidgetDesc, setNewWidgetDesc] = useState("");
-  const [alertType, setAlertType] = useState(""); 
-  const [severity, setSeverity] = useState(""); 
+  const [, setAlertType] = useState("");
+  const [, setSeverity] = useState("");
 
   const [riskItems, setRiskItems] = useState([
     { name: "", value: 0, color: "#D32F2F" },
@@ -35,7 +35,7 @@ const AddWidgetDrawer = ({
   const updateCWPPItem = (
     index: number,
     key: "name" | "value" | "color",
-    value: any
+    value: string | number
   ) => {
     setCWPPAlerts((prev) =>
       prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
@@ -46,19 +46,18 @@ const AddWidgetDrawer = ({
     setCWPPAlerts([...cwppAlerts, { name: "", value: 0, color: "#3B82F6" }]);
   };
 
-const updateItem = (
-  index: number,
-  key: "name" | "value" | "color",
-  value: string | number,
-  setter: React.Dispatch<
-    React.SetStateAction<{ name: string; value: number; color: string }[]>
-  >
-) => {
-  setter((prev) =>
-    prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
-  );
-};
-
+  const updateItem = (
+    index: number,
+    key: "name" | "value" | "color",
+    value: string | number,
+    setter: React.Dispatch<
+      React.SetStateAction<{ name: string; value: number; color: string }[]>
+    >
+  ) => {
+    setter((prev) =>
+      prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
+    );
+  };
 
   useEffect(() => {
     setActiveTab(defaultTab);
@@ -67,7 +66,7 @@ const updateItem = (
   const updateRiskItem = (
     index: number,
     key: "name" | "value" | "color",
-    value: any
+    value: string | number
   ) => {
     setRiskItems((prev) =>
       prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
@@ -89,7 +88,7 @@ const updateItem = (
   const updateImageSeverity = (
     index: number,
     key: "name" | "value" | "color",
-    value: any
+    value: string | number
   ) => {
     setImageSeverities((prev) =>
       prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
@@ -159,7 +158,6 @@ const updateItem = (
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/40">
       <div className="bg-white w-full max-w-[50%] h-full shadow-xl p-6 flex flex-col">
-        {/* Header */}
         <div className="flex justify-between items-center mb-4 border-b pb-2">
           <h2 className="text-lg font-semibold">Add Widget</h2>
           <Button onClick={onClose} className="text-white hover:text-gray-500">
@@ -167,7 +165,6 @@ const updateItem = (
           </Button>
         </div>
 
-        {/* Tabs */}
         <div className="flex space-x-4 mb-4">
           {tabs.map((tab) => (
             <Button
@@ -182,7 +179,6 @@ const updateItem = (
           ))}
         </div>
 
-        {/* Widget List */}
         <div className="flex-1 overflow-y-auto space-y-3 mb-6">
           {widgets[activeTab]?.map((widget) => (
             <div
@@ -197,7 +193,6 @@ const updateItem = (
           ))}
         </div>
 
-        {/* Add New Widget */}
         <div className="border-t pt-4 space-y-2">
           <h3 className="text-sm font-semibold mb-1">Add New Widget</h3>
 
@@ -417,7 +412,6 @@ const updateItem = (
           </Button>
         </div>
 
-        {/* Footer */}
         <div className="mt-6 flex justify-end">
           <Button
             onClick={onClose}

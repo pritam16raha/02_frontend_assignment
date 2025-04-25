@@ -12,12 +12,28 @@ const RegistryScanDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
   const searchQuery = useWidgetStore((state) => state.searchQuery);
 
+  // Demo fallback data
+  const demoWidgets: Widget[] = [
+    {
+      id: "registry-demo-1",
+      name: "Image Scan Overview",
+      description: "Demo registry scan breakdown",
+      data: [
+        { name: "High", value: 25, color: "#EF4444" },
+        { name: "Medium", value: 45, color: "#F59E0B" },
+        { name: "Low", value: 30, color: "#10B981" },
+      ],
+    },
+  ];
+
+  const activeWidgets = widgets.length > 0 ? widgets : demoWidgets;
+
   const filteredWidgets = useMemo(() => {
-    if (!searchQuery.trim()) return widgets;
-    return widgets.filter((widget) =>
+    if (!searchQuery.trim()) return activeWidgets;
+    return activeWidgets.filter((widget) =>
       widget.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [widgets, searchQuery]);
+  }, [activeWidgets, searchQuery]);
 
   return (
     <div className="space-y-2 px-4">

@@ -13,12 +13,28 @@ const CSPMExecutiveDashboard = ({ widgets, openDrawer }: Props) => {
   const removeWidget = useWidgetStore((state) => state.removeWidget);
   const searchQuery = useWidgetStore((state) => state.searchQuery);
 
+  const demoWidgets: Widget[] = [
+    {
+      id: "demo-1",
+      name: "Cloud Risk Overview",
+      description: "Demo data showing risk levels",
+      data: [
+        { name: "High", value: 45, color: "#EF4444" },
+        { name: "Medium", value: 30, color: "#F59E0B" },
+        { name: "Low", value: 25, color: "#10B981" },
+      ],
+    },
+  ];
+
+  const activeWidgets = widgets.length > 0 ? widgets : demoWidgets;
+
   const filteredWidgets = useMemo(() => {
-    if (!searchQuery.trim()) return widgets;
-    return widgets.filter((widget) =>
+    if (!searchQuery.trim()) return activeWidgets;
+    return activeWidgets.filter((widget) =>
       widget.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [widgets, searchQuery]);
+  }, [activeWidgets, searchQuery]);
+
   return (
     <div className="space-y-2 px-4">
       <h2 className="text-lg font-semibold">CSPM Executive Dashboard</h2>
@@ -108,7 +124,6 @@ const CSPMExecutiveDashboard = ({ widgets, openDrawer }: Props) => {
           );
         })}
 
-        {/* Add Widget Button */}
         <div className="bg-white rounded-xl shadow-sm flex items-center justify-center p-6">
           <Button
             onClick={openDrawer}
