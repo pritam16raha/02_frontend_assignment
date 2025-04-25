@@ -9,7 +9,7 @@ export type Widget = {
 };
 
 type WidgetStore = {
-  widgets: Record<string, Widget[]>; // category -> widgets
+  widgets: Record<string, Widget[]>;
   addWidget: (category: string, widget: Widget) => void;
   removeWidget: (category: string, widgetId: string) => void;
   setWidgets: (category: string, widgets: Widget[]) => void;
@@ -51,7 +51,7 @@ export const useWidgetStore = create<WidgetStore>()(
       setSearchQuery: (query: string) => set({ searchQuery: query }),
     }),
     {
-      name: "dashboard-widgets", // key in localStorage
+      name: "dashboard-widgets",
     }
   )
 );

@@ -1,16 +1,16 @@
 "use client";
 import { useMemo } from "react";
 import {
-  BarChart,
-  XAxis,
-  YAxis,
   Bar,
+  BarChart,
+  Cell,
   ResponsiveContainer,
   Tooltip,
-  Cell,
+  XAxis,
+  YAxis,
 } from "recharts";
+import { Button } from "../../../components/ui/button";
 import { useWidgetStore, Widget } from "../../../store/useWidgetStore";
-import { FaTimes } from "react-icons/fa";
 
 type Props = {
   widgets: Widget[];
@@ -44,13 +44,13 @@ const CWPPDashboard = ({ widgets, openDrawer }: Props) => {
             key={widget.id}
             className="relative bg-white rounded-xl shadow-sm p-4"
           >
-            <button
+            <Button
               onClick={() => removeWidget("CWPP", widget.id)}
-              className="absolute top-2 right-2 z-10 text-gray-400 hover:text-red-600"
+              className="absolute top-2 right-2 z-10 text-gray-400 hover:text-red-600 bg-gray-100"
               title="Remove Widget"
             >
-              <FaTimes />
-            </button>
+              Remove
+            </Button>
 
             <h3 className="text-base font-semibold mb-1">{widget.name}</h3>
             <p className="text-sm text-gray-500 mb-4">
@@ -79,12 +79,12 @@ const CWPPDashboard = ({ widgets, openDrawer }: Props) => {
         ))}
 
         <div className="bg-white rounded-xl shadow-sm flex items-center justify-center p-6">
-          <button
+          <Button
             onClick={openDrawer}
-            className="border border-dashed border-gray-400 p-4 rounded-lg text-gray-500 hover:bg-gray-100"
+            className="border border-dashed bg-gray-200 border-gray-400 p-4 rounded-lg text-gray-500 hover:bg-gray-700 hover:text-white"
           >
             + Add Widget
-          </button>
+          </Button>
         </div>
       </div>
     </div>

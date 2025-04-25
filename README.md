@@ -67,7 +67,6 @@ src/
 ├── store/                 # Zustand store for widgets
 ├── types/                 # Shared TypeScript types
 └── App.tsx
-📸 Screenshots
 
 Dashboard View	Add Widget Drawer	Search Feature
 

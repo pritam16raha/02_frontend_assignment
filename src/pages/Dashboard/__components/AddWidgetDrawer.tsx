@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useWidgetStore, Widget } from "../../../store/useWidgetStore";
+import { Button } from "../../../components/ui/button";
 
 type AddWidgetDrawerProps = {
   open: boolean;
@@ -18,18 +19,15 @@ const AddWidgetDrawer = ({
   const [activeTab, setActiveTab] = useState(defaultTab);
   const { widgets, addWidget } = useWidgetStore();
 
-  // Shared input fields
   const [newWidgetName, setNewWidgetName] = useState("");
-  const [newWidgetDesc, setNewWidgetDesc] = useState(""); // for CSPM
-  const [alertType, setAlertType] = useState(""); // for CWPP
-  const [severity, setSeverity] = useState(""); // for Image
+  const [newWidgetDesc, setNewWidgetDesc] = useState("");
+  const [alertType, setAlertType] = useState(""); 
+  const [severity, setSeverity] = useState(""); 
 
-  // CSPM-specific chart data
   const [riskItems, setRiskItems] = useState([
     { name: "", value: 0, color: "#D32F2F" },
   ]);
 
-  // CWPP-specific
   const [cwppAlerts, setCWPPAlerts] = useState([
     { name: "", value: 0, color: "#3B82F6" },
   ]);
@@ -119,7 +117,6 @@ const updateItem = (
 
     const newId = `w-${Date.now()}`;
 
-    // Build widget base
     const newWidget: Widget = {
       id: newId,
       name: newWidgetName,
@@ -127,7 +124,6 @@ const updateItem = (
       data: undefined,
     };
 
-    // Assign description & data based on tab
     switch (activeTab) {
       case "CSPM":
         newWidget.description = newWidgetDesc;
@@ -155,35 +151,34 @@ const updateItem = (
 
     addWidget(activeTab, newWidget);
     resetFields();
+    onClose();
   };
 
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/40">
-      <div className="bg-white w-full max-w-md h-full shadow-xl p-6 flex flex-col">
+      <div className="bg-white w-full max-w-[50%] h-full shadow-xl p-6 flex flex-col">
         {/* Header */}
         <div className="flex justify-between items-center mb-4 border-b pb-2">
           <h2 className="text-lg font-semibold">Add Widget</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-black">
+          <Button onClick={onClose} className="text-white hover:text-gray-500">
             <FaTimes />
-          </button>
+          </Button>
         </div>
 
         {/* Tabs */}
-        <div className="flex space-x-4 border-b mb-4">
+        <div className="flex space-x-4 mb-4">
           {tabs.map((tab) => (
-            <button
+            <Button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`py-2 px-3 text-sm font-medium ${
-                tab === activeTab
-                  ? "border-b-2 border-blue-600 text-blue-600"
-                  : "text-gray-500"
+                tab === activeTab ? "text-white " : "text-gray-500 bg-gray-200"
               }`}
             >
               {tab}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -255,13 +250,13 @@ const updateItem = (
                     />
                   </div>
                 ))}
-                <button
+                <Button
                   type="button"
                   onClick={addRiskItem}
-                  className="text-xs text-blue-600 hover:underline"
+                  className="text-xs text-[#000] hover:text-white bg-gray-200"
                 >
                   + Add Item
-                </button>
+                </Button>
               </div>
             </>
           )}
@@ -300,13 +295,13 @@ const updateItem = (
                     />
                   </div>
                 ))}
-                <button
+                <Button
                   type="button"
                   onClick={addCWPPItem}
-                  className="text-xs text-blue-600 hover:underline"
+                  className="text-xs text-[#000] hover:text-white bg-gray-200"
                 >
                   + Add Alert
-                </button>
+                </Button>
               </div>
             </>
           )}
@@ -345,13 +340,13 @@ const updateItem = (
                     />
                   </div>
                 ))}
-                <button
+                <Button
                   type="button"
                   onClick={addImageSeverity}
-                  className="text-xs text-blue-600 hover:underline"
+                  className="text-xs text-[#000] hover:text-white bg-gray-200"
                 >
                   + Add Severity
-                </button>
+                </Button>
               </div>
             </>
           )}
@@ -399,7 +394,7 @@ const updateItem = (
                   />
                 </div>
               ))}
-              <button
+              <Button
                 type="button"
                 onClick={() =>
                   setTicketStatuses([
@@ -407,29 +402,29 @@ const updateItem = (
                     { name: "", value: 0, color: "#10B981" },
                   ])
                 }
-                className="text-xs text-blue-600 hover:underline"
+                className="text-xs text-[#000] hover:text-white bg-gray-200"
               >
                 + Add Status
-              </button>
+              </Button>
             </>
           )}
 
-          <button
+          <Button
             onClick={handleAddWidget}
-            className="px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
+            className="px-4 py-2 text-sm bg-gray-600 text-[#fff] rounded hover:bg-gray-500 w-full"
           >
             + Add Widget
-          </button>
+          </Button>
         </div>
 
         {/* Footer */}
         <div className="mt-6 flex justify-end">
-          <button
+          <Button
             onClick={onClose}
-            className="px-4 py-2 rounded border text-sm text-gray-600 hover:bg-gray-100"
+            className="bg-gray-600 text-[#fff] rounded hover:bg-gray-500"
           >
             Close
-          </button>
+          </Button>
         </div>
       </div>
     </div>
